@@ -1,0 +1,8 @@
+assembly-versioning-scheme: MajorMinorPatch
+mode: MainLine
+next-version: 0.0.0
+tag-prefix: '[vV]'
+major-version-bump-message: '\+semver:\s?(breaking|major)'
+minor-version-bump-message: '\+semver:\s?(feature|minor)'
+patch-version-bump-message: '\+semver:\s?(.)'
+commit-message-incrementing: Enabled
