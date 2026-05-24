@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: clientmanager-sqlserver
+    environment:
+      SA_PASSWORD: "Programador.88"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqldata:/var/opt/mssql
+    networks:
+      - clientmanager-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Programa2#8", "-Q", "SELECT 1", "-No"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+
+  clientmanager-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clientmanager-api
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_URLS: "http://+:8080"
+      SqlServerSettings__ConnectionStrings: "Server=localhost,1433;Database=BdClientes;User Id=sa;Password=Programador.88;TrustServerCertificate=True;"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - clientmanager-network
+    restart: unless-stopped
+
+volumes:
+  sqldata:
+
+networks:
+  clientmanager-network:
+    driver: bridge
