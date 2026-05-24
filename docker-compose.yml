@@ -17,7 +17,7 @@ services:
       - clientmanager-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Programa2#8", "-Q", "SELECT 1", "-No"]
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Programador.88", "-Q", "SELECT 1", "-No"]
       interval: 10s
       retries: 10
       start_period: 30s
