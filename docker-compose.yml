@@ -32,7 +32,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
       ASPNETCORE_URLS: "http://+:8080"
-      SqlServerSettings__ConnectionStrings: "Server=localhost,1433;Database=BdClientes;User Id=sa;Password=Programador.88;TrustServerCertificate=True;"
+      SqlServerSettings__ConnectionStrings: "Server=sqlserver,1433;Database=BdClientes;User Id=sa;Password=Programador.88;TrustServerCertificate=True;"
     depends_on:
       sqlserver:
         condition: service_healthy
